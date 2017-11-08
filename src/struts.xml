@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+ 
+<struts>
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="true" />
+	<constant name="struts.custom.i18n.resources" value="global" />
+
+	
+	<package name="grabfish" extends="struts-default" namespace="/">
+		<result-types>
+       		<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
+       	</result-types>
+       
+       
+		<interceptors>
+			<interceptor name="printMsgInterceptor"
+				class="com.interceptor.ActionInterceptor"></interceptor>
+         	<interceptor-stack name="newStack">
+     		<interceptor-ref name="printMsgInterceptor"/>
+			<interceptor-ref name="defaultStack" />
+      	  </interceptor-stack>
+		</interceptors>
+    
+        <action name="login" method="input" class="com.action.LoginAction" >
+            <result name="input" type="tiles">loginPage</result>			 
+        </action>  
+        
+        <action name="doLogin" method="login" class="com.action.LoginAction" >
+            <result name="success" type="redirectAction">home</result>
+            <result name="input" type="tiles">loginPage</result>
+        </action>        
+         
+        <action name="dologout" method="execute" class="com.action.LogoutAction" >
+            <result name="success" type="tiles">loginPage</result>
+        </action>    
+        
+        <action name="register" method="input" class="com.action.RegisterAction" >
+            <result name="input" type="tiles">registerPage</result>			 
+        </action>  
+        
+        <action name="doRegister" method="execute" class="com.action.RegisterAction" >
+            <result name="success" type="tiles">registerSucess</result>
+            <result name="input" type="tiles">registerPage</result>
+        </action>     
+
+ 
+        <action name="home" method="execute" class="com.action.HomeAction" >
+            <result name="success" type="tiles">home</result>			 
+        </action>     
+ 
+        <action name="aboutUs" method="execute" class="com.action.AboutUsAction" >
+            <result name="success" type="tiles">aboutUsPage</result>			 
+        </action>          
+
+        <action name="myProfile" method="execute" class="com.action.ProfileAction" >
+            <result name="success" type="tiles">myProfile</result>			 
+        </action>
+        <action name="updateMyProfile" method="input" class="com.action.UpdateProfileAction" >
+            <result name="input" type="tiles">updateMyProfile</result>	 
+        </action>
+        <action name="saveMyProfile" method="execute" class="com.action.UpdateProfileAction" >
+            <result name="success" type="tiles">myProfile</result>	 
+        </action>
+        
+        <action name="myOrder" method="execute" class="com.action.MyOrderAction" >
+            <result name="success" type="tiles">myOrder</result>			 
+        </action>
+        <action name="addOrder" method="input" class="com.action.AddOrderAction" >
+            <result name="input" type="tiles">addOrder</result>			 
+        </action>
+                            
+                                        
+    <!--  
+        <action name="logout" class="simple.LoginAction" method="logout" >
+            <result name="success" type="tiles">/login.jsp</result>
+        </action>
+        
+        <action name="login" class="user" method="execute">
+            <result name="user" type="tiles">mainTemplate</result>
+        </action>
+        <action name="*menu" class="user" method="{1}">
+            <result name="user" type="tiles">mainTemplate</result>
+            <result name="madhuri" type="tiles">madhuri</result>
+            <result name="alia" type="tiles">alia</result>
+            <result name="addUser" type="tiles">mainTemplate</result>
+        </action>
+        
+         -->
+          
+   
+    </package>
+    
+	<package name="default" namespace="/" extends="struts-default">
+   		<result-types>
+       		<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
+       	</result-types>
+       
+	   	<action name="locale" class="com.action.LocaleAction">
+			<result name="SUCCESS" type="tiles">loginPage</result>
+	   	</action>
+	</package>    
+
+ 	
+ </struts>
+ 
